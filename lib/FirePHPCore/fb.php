@@ -217,6 +217,13 @@ class FB
         return self::send($object, $label, FirePHP::WARN);
     }
 
+    public static function time($label)
+    {
+        $fb_timer = new FB_Timer();
+        $fb_timer->start($label);
+        return $fb_timer;
+    }
+
     /**
      * Log object with label to firebug console
      *
@@ -272,4 +279,40 @@ class FB
         return self::send($table, $label, FirePHP::TABLE);
     }
 
+}
+
+class FB_Timer
+{
+    private $start_microtime;
+    private $end_microtime;
+
+    /**
+     * Start the timer. Accepts a label as a parameter.
+     * @param $label
+     * @return $this
+     */
+    public function start($label){
+        $this->label = $label;
+        $this->start_microtime = microtime(true);
+        return $this;
+    }
+
+    public function stop($log = true)
+    {
+        $this->end_microtime = microtime(true);
+        if($log) {
+            $this->log();
+        }
+    }
+
+    public function get_time()
+    {
+        return $this->end_microtime - $this->start_microtime;
+    }
+
+    public function log()
+    {
+        $time = number_format($this->get_time(),3);
+        FB::log("{$this->label} in {$time}");
+    }
 }
