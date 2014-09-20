@@ -1,5 +1,5 @@
 {
-    "name": "firephp/firephp-core",
+    "name": "thruio/firephp-core",
     "description": "Traditional FirePHPCore library for sending PHP variables to the browser.",
     "type": "library",
     "homepage": "https://github.com/firephp/firephp-core",
